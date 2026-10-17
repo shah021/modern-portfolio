@@ -1,4 +1,5 @@
 "use client"
+
 import dynamic from "next/dynamic"
 import { motion } from "framer-motion"
 import { CartProvider } from "@/lib/cart-context"
@@ -6,5 +7,29 @@ import { LoadingScreen } from "@/components/loading-screen"
 import { SiteNavbar } from "@/components/site-navbar"
 import { HeroSection } from "@/components/hero-section"
 import { CollectionSection } from "@/components/collection-section"
-const SceneCanvas = dynamic(() => import("@/components/scene/scene-canvas").then(m => m.SceneCanvas), { ssr: false })
-export default function Page() { return <CartProvider><LoadingScreen /><SceneCanvas /><SiteNavbar /><main><HeroSection /><section className="story section-wrap" id="story"><div className="story-top"><p className="eyebrow orange">THE MATERIAL / 02</p><h2>FEEL THE<br /><em>DIFFERENCE.</em></h2></div><div className="story-bottom"><p>Heavyweight cotton. A structured silhouette.<br />Designed for everyday rotation.</p><div className="features"><div><b>240</b><span>GSM COTTON</span></div><div><b>RELAXED</b><span>FIT</span></div><div><b>BUILT</b><span>TO LAST</span></div></div></div></section><section className="philosophy section-wrap"><p className="eyebrow">THE APPROACH / 03</p><div className="philosophy-grid"><h2>LESS,<br /><em>BUT BETTER.</em></h2><div className="annotation"><span className="cross">＋</span><p>Every seam has a purpose.<br />Every detail earns its place.</p><div className="line" /><small>THREADFORM / OBJECT 001<br />CONSIDERED IN LONDON</small></div></div></section><CollectionSection /><section className="values section-wrap" id="values"><p className="eyebrow orange">OUR ROADMAP / 04</p><h2>MADE FOR<br /><em>THE LONG RUN.</em></h2><div className="value-list">{["CONSIDERED MATERIALS", "TIMELESS FIT", "EVERYDAY VERSATILITY"].map((v, i) => <motion.div className="value-row" key={v} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}><span>0{i + 1}</span><strong>{v}</strong><span>↗</span></motion.div>)}</div></section><section className="final section-wrap"><p className="eyebrow">DROP 001 / AVAILABLE NOW</p><h2>YOUR ROTATION<br /><em>STARTS HERE.</em></h2><p>Find the piece you will reach for again and again.</p><a className="button button-orange" href="#collection">EXPLORE ALL TEES <span>↘</span></a></section></main><footer className="footer section-wrap"><a className="brand" href="#top">THREAD<span>FORM</span></a><div className="footer-links"><a href="#collection">Shop</a><a href="#story">About</a><a href="mailto:hello@threadform.studio">Contact</a><a href="#top">Shipping & Returns</a><a href="#top">Privacy Policy</a></div><div className="footer-bottom"><span>© 2026 THREADFORM STUDIO</span><span>INSTAGRAM / PINTEREST</span><span>DESIGNED FOR EVERYDAY</span></div></footer></CartProvider> }
+
+const SceneCanvas = dynamic(() => import("@/components/scene/scene-canvas").then((module) => module.SceneCanvas), { ssr: false })
+
+const values = ["مواد اولیه سنجیده", "فرم ماندگار", "کاربرد هر روزه"]
+
+export default function Page() {
+  return (
+    <CartProvider>
+      <LoadingScreen />
+      <SceneCanvas />
+      <SiteNavbar />
+      <main id="top">
+        <HeroSection />
+        <section className="story section-wrap" id="story">
+          <div className="story-top"><p className="eyebrow orange">داستان پارچه / ۰۲</p><h2>تفاوت را<br /><em>احساس کن.</em></h2></div>
+          <div className="story-bottom"><p>پنبه سنگین‌وزن. فرم ساختاریافته.<br />برای چرخش روزمره طراحی شده.</p><div className="features"><div><b>۲۴۰</b><span>گرم بر متر</span></div><div><b>آزاد</b><span>فرم تن‌خور</span></div><div><b>ساخته</b><span>برای ماندن</span></div></div></div>
+        </section>
+        <section className="philosophy section-wrap"><p className="eyebrow">رویکرد ما / ۰۳</p><div className="philosophy-grid"><h2>کمتر،<br /><em>اما بهتر.</em></h2><div className="annotation"><span className="cross">＋</span><p>هر دوخت دلیلی دارد.<br />هر جزئیات جای خود را پیدا می‌کند.</p><div className="line" /><small>THREADFORM / شیء ۰۰۱<br />طراحی‌شده برای شهر</small></div></div></section>
+        <CollectionSection />
+        <section className="values section-wrap" id="values"><p className="eyebrow orange">اصول ما / ۰۴</p><h2>برای<br /><em>مسیر طولانی.</em></h2><div className="value-list">{values.map((value, index) => <motion.div className="value-row" key={value} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}><span>{`۰${index + 1}`}</span><strong>{value}</strong><span>↗</span></motion.div>)}</div></section>
+        <section className="final section-wrap"><p className="eyebrow">دراپ ۰۰۱ / اکنون موجود است</p><h2>چرخش تو<br /><em>از اینجا شروع می‌شود.</em></h2><p>قطعه‌ای را پیدا کن که بارها سراغش می‌روی.</p><a className="button button-orange" href="#collection">مشاهده تی‌شرت‌ها <span>↘</span></a></section>
+      </main>
+      <footer className="footer section-wrap"><a className="brand" href="#top">THREAD<span>FORM</span></a><div className="footer-links"><a href="#collection">فروشگاه</a><a href="#story">درباره ما</a><a href="mailto:hello@threadform.studio">تماس</a><a href="#values">ارسال و بازگشت</a><a href="#top">حریم خصوصی</a></div><p>ساخته‌شده برای پوشیدن متفاوت.</p></footer>
+    </CartProvider>
+  )
+}
