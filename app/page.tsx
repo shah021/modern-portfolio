@@ -1,77 +1,10 @@
-"use client";
-
-import { motion } from "framer-motion";
-
-import ParticlesContainer from "@/components/ParticlesContainer";
-import ProjectsBtn from "@/components/ProjectsBtn";
-import Avatar from "@/components/Avatar";
-import { fadeIn } from "@/variants";
-
-const Home = () => {
-  return (
-    <div className="bg-primary/60 h-full">
-      <div className="w-full h-full bg-linear-to-r from-primary/10 via-black/30 to-black/10">
-        <div className="text-center flex flex-col justify-center xl:pt-40 xl:text-left h-full container mx-auto">
-          <motion.h1
-            variants={fadeIn("down", 0.2)}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            className="h1"
-          >
-            Transforming Ideas <br /> Into{" "}
-            <span className="text-accent">Digital Reality</span>
-          </motion.h1>
-
-          <motion.p
-            variants={fadeIn("down", 0.3)}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            className="max-w-sm xl:max-w-xl mx-auto xl:mx-0 mb-10 xl:mb-16"
-          >
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate,
-            exercitationem harum, quia nulla temporibus deleniti libero veniam
-            vero beatae numquam ducimus illum ab similique ipsam tempore fugit
-            quod laudantium debitis.
-          </motion.p>
-
-          <div className="flex justify-center xl:hidden relative">
-            <ProjectsBtn />
-          </div>
-          <motion.div
-            variants={fadeIn("down", 0.4)}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            className="hidden xl:flex"
-          >
-            <ProjectsBtn />
-          </motion.div>
-        </div>
-      </div>
-      <div className="w-7xl h-full absolute right-0 bottom-0 pointer-events-none">
-        <div
-          role="img"
-          className="bg-none xl:bg-explosion xl:bg-cover xl:bg-right xl:bg-no-repeat w-full h-full absolute mix-blend-color-dodge translate-z-0"
-          aria-hidden
-        />
-
-        <ParticlesContainer />
-
-        <motion.div
-          variants={fadeIn("up", 0.5)}
-          initial="hidden"
-          animate="show"
-          exit="hidden"
-          transition={{ duration: 1, ease: "easeInOut" }}
-          className="w-full h-full max-w-184.25 max-h-169.5 absolute -bottom-32 lg:bottom-0 lg:right-[8%]"
-        >
-          <Avatar />
-        </motion.div>
-      </div>
-    </div>
-  );
-};
-
-export default Home;
+"use client"
+import dynamic from "next/dynamic"
+import { motion } from "framer-motion"
+import { CartProvider } from "@/lib/cart-context"
+import { LoadingScreen } from "@/components/loading-screen"
+import { SiteNavbar } from "@/components/site-navbar"
+import { HeroSection } from "@/components/hero-section"
+import { CollectionSection } from "@/components/collection-section"
+const SceneCanvas = dynamic(() => import("@/components/scene/scene-canvas").then(m => m.SceneCanvas), { ssr: false })
+export default function Page() { return <CartProvider><LoadingScreen /><SceneCanvas /><SiteNavbar /><main><HeroSection /><section className="story section-wrap" id="story"><div className="story-top"><p className="eyebrow orange">THE MATERIAL / 02</p><h2>FEEL THE<br /><em>DIFFERENCE.</em></h2></div><div className="story-bottom"><p>Heavyweight cotton. A structured silhouette.<br />Designed for everyday rotation.</p><div className="features"><div><b>240</b><span>GSM COTTON</span></div><div><b>RELAXED</b><span>FIT</span></div><div><b>BUILT</b><span>TO LAST</span></div></div></div></section><section className="philosophy section-wrap"><p className="eyebrow">THE APPROACH / 03</p><div className="philosophy-grid"><h2>LESS,<br /><em>BUT BETTER.</em></h2><div className="annotation"><span className="cross">＋</span><p>Every seam has a purpose.<br />Every detail earns its place.</p><div className="line" /><small>THREADFORM / OBJECT 001<br />CONSIDERED IN LONDON</small></div></div></section><CollectionSection /><section className="values section-wrap" id="values"><p className="eyebrow orange">OUR ROADMAP / 04</p><h2>MADE FOR<br /><em>THE LONG RUN.</em></h2><div className="value-list">{["CONSIDERED MATERIALS", "TIMELESS FIT", "EVERYDAY VERSATILITY"].map((v, i) => <motion.div className="value-row" key={v} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}><span>0{i + 1}</span><strong>{v}</strong><span>↗</span></motion.div>)}</div></section><section className="final section-wrap"><p className="eyebrow">DROP 001 / AVAILABLE NOW</p><h2>YOUR ROTATION<br /><em>STARTS HERE.</em></h2><p>Find the piece you will reach for again and again.</p><a className="button button-orange" href="#collection">EXPLORE ALL TEES <span>↘</span></a></section></main><footer className="footer section-wrap"><a className="brand" href="#top">THREAD<span>FORM</span></a><div className="footer-links"><a href="#collection">Shop</a><a href="#story">About</a><a href="mailto:hello@threadform.studio">Contact</a><a href="#top">Shipping & Returns</a><a href="#top">Privacy Policy</a></div><div className="footer-bottom"><span>© 2026 THREADFORM STUDIO</span><span>INSTAGRAM / PINTEREST</span><span>DESIGNED FOR EVERYDAY</span></div></footer></CartProvider> }
